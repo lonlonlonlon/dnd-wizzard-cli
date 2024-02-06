@@ -6,7 +6,7 @@
 #include <sys/mman.h>
 #include <sys/ioctl.h>
 
-int main()
+int main(int argc, char *argv[])
 {
     int fbfd = 0;
     struct fb_var_screeninfo vinfo;
@@ -22,7 +22,7 @@ int main()
         perror("Error: cannot open framebuffer device");
         exit(1);
     }
-    printf("The framebuffer device was opened successfully.\n");
+//    printf("The framebuffer device was opened successfully.\n");
 
     // Get fixed screen information
     if (ioctl(fbfd, FBIOGET_FSCREENINFO, &finfo) == -1) {
@@ -35,9 +35,10 @@ int main()
         perror("Error reading variable information");
         exit(3);
     }
-
-    printf("%dx%d, %dbpp\n", vinfo.xres, vinfo.yres, vinfo.bits_per_pixel);
-
+    printf("%s get-resolution", argv[1]);
+//    if (argv[1] == "get-resolution") {
+        printf("[\"x\" => %d, \"y\" => %d, \"bpp\" %d]", vinfo.xres, vinfo.yres, vinfo.bits_per_pixel);
+//    }
     // Figure out the size of the screen in bytes
     screensize = vinfo.xres * vinfo.yres * vinfo.bits_per_pixel / 8;
 
@@ -58,6 +59,8 @@ int main()
 
             location = (x+vinfo.xoffset) * (vinfo.bits_per_pixel/8) +
                        (y+vinfo.yoffset) * finfo.line_length;
+            printf("xoffset: %d yoffset: %d linelength: %d");
+            exit(0);
 
             if (vinfo.bits_per_pixel == 32) {
                 *(fbp + location) = 100;        // Some blue

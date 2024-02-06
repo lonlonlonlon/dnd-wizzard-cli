@@ -1,0 +1,5 @@
+{
+    "require": {
+        "calcinai/php-mmap": "^0.1.8"
+    }
+}
