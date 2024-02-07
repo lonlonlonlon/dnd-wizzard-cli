@@ -1,2 +1,2 @@
-- c bin für videoinfo auslesen (für fb0 size berechnungen)
-- php mmap nutzen um den shit zu schreiben
+- (x) c bin für videoinfo auslesen (für fb0 size berechnungen)
+- ( ) php mmap nutzen um den shit zu schreiben
