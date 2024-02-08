@@ -23,8 +23,14 @@ function mainLoop()
     $lines = system('tput lines') - 1;
     system('clear');
     while (1) {
-        system('tput cup '.rand(0,$lines).' '.rand(0,$cols));
-        $displayString = get_defined_constants()[$colArray[rand(0, count($colArray) - 1)]];
-        echo($displayString.' ');
+        system('tput cup '.rand(0,$lines).' '.rand(0,$cols)); // 0.002109
+        $start = microtime(true);
+        {
+            $displayString = get_defined_constants()[$colArray[rand(0, count($colArray) - 1)]];
+            echo($displayString . ' ');
+        } // 0.000195
+        $end = microtime(true);
+        echo $end - $start;
+        exit();
     }
 }
