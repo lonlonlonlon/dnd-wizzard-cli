@@ -1,21 +1,30 @@
 <?php
 
 
-function mainLoop () {
-    $cols = system('tput cols') - 1;
+function mainLoop()
+{
+    $colArray = [
+        "TERM_BACK_WHITE_DARK",
+        "TERM_BACK_YELLOW_DARK",
+        "TERM_BACK_GREEN_DARK",
+        "TERM_BACK_CYAN_DARK",
+        "TERM_BACK_BLUE_DARK",
+        "TERM_BACK_PURPLE_DARK",
+        "TERM_BACK_RED_DARK",
+        "TERM_BACK_RED_LIGHT",
+        "TERM_BACK_GREEN_LIGHT",
+        "TERM_BACK_YELLOW_LIGHT",
+        "TERM_BACK_BLUE_LIGHT",
+        "TERM_BACK_PURPLE_LIGHT",
+        "TERM_BACK_CYAN_LIGHT",
+        "TERM_BACK_WHITE_LIGHT",
+    ];
+    $cols = system('tput cols');
     $lines = system('tput lines') - 1;
+    system('clear');
     while (1) {
-        $displayString = TERM_BACK_PURPLE_DARK;
-        for ($x = 0; $x < $lines; $x++) {
-            for ($y = 0; $y < $cols; $y++) {
-                $displayString .= ' ';
-            }
-            $displayString .= [TERM_BACK_CYAN_LIGHT, TERM_BACK_GREEN_LIGHT, TERM_BACK_YELLOW_LIGHT][rand(0,2)].PHP_EOL;
-            echo ($displayString);
-            $displayString = '';
-            usleep(1000);
-        }
-        echo(TERM_RESET);
-        system('clear');
+        system('tput cup '.rand(0,$lines).' '.rand(0,$cols));
+        $displayString = get_defined_constants()[$colArray[rand(0, count($colArray) - 1)]];
+        echo($displayString.' ');
     }
 }
