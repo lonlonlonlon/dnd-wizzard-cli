@@ -59,8 +59,6 @@ int main(int argc, char *argv[])
 
             location = (x+vinfo.xoffset) * (vinfo.bits_per_pixel/8) +
                        (y+vinfo.yoffset) * finfo.line_length;
-            printf("xoffset: %d yoffset: %d linelength: %d");
-            exit(0);
 
             if (vinfo.bits_per_pixel == 32) {
                 *(fbp + location) = 100;        // Some blue

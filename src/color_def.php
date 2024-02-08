@@ -39,6 +39,7 @@ const TERM_FORE_LIGHT_GRAY="\e[0;37m";
 const TERM_FORE_WHITE="\e[1;37m";
 
 
+
 // 128 Cols 37 lines
 function displayColorTest () {
     $lineBreak = false;
@@ -58,5 +59,3 @@ function displayColorTest () {
         }
     }
 }
-
-displayColorTest();

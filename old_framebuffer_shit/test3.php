@@ -17,9 +17,10 @@ while (1) {
     echo $newScreenContent;
     fwrite($stream, $newScreenContent);
     $newScreenContent = '';
-    if ($c == 100) {
-        fclose($stream);
-        exit();
-    }
+    rewind($stream);
+//    if ($c == 100) {
+//        fclose($stream);
+//        exit();
+//    }
     $c++;
 }
