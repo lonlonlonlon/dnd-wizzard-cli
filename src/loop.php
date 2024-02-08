@@ -13,6 +13,7 @@ function mainLoop () {
             $displayString .= [TERM_BACK_CYAN_LIGHT, TERM_BACK_GREEN_LIGHT, TERM_BACK_YELLOW_LIGHT][rand(0,2)].PHP_EOL;
             echo ($displayString);
             $displayString = '';
+            usleep(10);
         }
         echo(TERM_RESET);
         system('clear');
