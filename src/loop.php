@@ -24,9 +24,9 @@ function mainLoop()
             $fps = $frames;
             $frames = 0;
         }
-        echo($fps.PHP_EOL);
+        echo("\033[20;20H" . $fps);
         echo "\033[1;1H";
-        usleep(1000000);
+//        usleep(1000000);
     }
 }
 
