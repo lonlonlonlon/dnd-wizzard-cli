@@ -4,22 +4,7 @@
 function mainLoop()
 {
     $defaultCharset = json_decode(file_get_contents('src/charsets/default'), true);
-    $colArray = [
-        "TERM_BACK_WHITE_DARK",
-        "TERM_BACK_YELLOW_DARK",
-        "TERM_BACK_GREEN_DARK",
-        "TERM_BACK_CYAN_DARK",
-        "TERM_BACK_BLUE_DARK",
-        "TERM_BACK_PURPLE_DARK",
-        "TERM_BACK_RED_DARK",
-        "TERM_BACK_RED_LIGHT",
-        "TERM_BACK_GREEN_LIGHT",
-        "TERM_BACK_YELLOW_LIGHT",
-        "TERM_BACK_BLUE_LIGHT",
-        "TERM_BACK_PURPLE_LIGHT",
-        "TERM_BACK_CYAN_LIGHT",
-        "TERM_BACK_WHITE_LIGHT",
-    ];
+    $mapMain = loadMap("src/maps/main");
 //    $cols = system('tput cols');
 //    $lines = system('tput lines');
     $cols = 128;
@@ -32,7 +17,7 @@ function mainLoop()
 //        $randLocation = [random_int(0, $cols), random_int(0, $lines)];
 //        $displayString = "\033[$randLocation[1];$randLocation[0]H".get_defined_constants()[$colArray[rand(0, count($colArray) - 1)]];
 //        echo($displayString . ' ');
-        drawMap('main', $defaultCharset);
+        drawMap($mapMain, $defaultCharset);
         $frames += 1;
         if (microtime(true) > $start + 1) {
             $start = microtime(true);
@@ -45,17 +30,30 @@ function mainLoop()
     }
 }
 
-function drawMap(string $map, array $charset)
+function loadMap(string $path)
 {
-    $map = trim(file_get_contents("src/maps/$map"));
-    foreach (explode("\n", $map) as $line) {
-        foreach (str_split(trim($line)) as $char) {
-            $echoStr = '';
-            foreach ($charset[$char]['col'] as $col) {
-                $echoStr .= get_defined_constants()[$col];
-            }
-            echo($echoStr . $charset[$char]['char'] . TERM_RESET);
-        }
-        echo ("\n");
+    $map = trim(file_get_contents($path));
+    $lines = explode(PHP_EOL, $map);
+    foreach ($lines as &$line) {
+        $line = str_split($line);
     }
+    return $lines;
+}
+
+function drawMap(array $map, array $charset)
+{
+    $echoStr = '';
+    foreach ($map as $line) {
+        foreach ($line as $char) {
+            if (empty($charset[$char]['col'])) {
+                $echoStr .= TERM_RESET;
+            }
+            foreach ($charset[$char]['col'] as $col) {
+                $echoStr .= COLOR_DEFS[$col];
+            }
+            $echoStr .= $charset[$char]['char'];
+        }
+        $echoStr .= PHP_EOL;
+    }
+    echo($echoStr);
 }
