@@ -7,9 +7,11 @@ foreach (glob("src/*.php") as $srcFile) {
 $ttyprops = trim(`stty -g`);
 $_ENV['ttyprops'] = $ttyprops;
 system('stty -icanon -echo');
+system('tput civis');
 
 function shutdown(){
 //    echo "\033c";
+    system('tput cnorm');
     system("stty '".$_ENV["ttyprops"]."'");
     if (!empty($_ENV["debug"])) {
         var_dump($_ENV["debug"]);
