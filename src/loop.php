@@ -8,7 +8,7 @@ function mainLoop()
 //    $cols = system('tput cols');
 //    $lines = system('tput lines');
     $cols = 128;
-    $lines = 37;
+    $lines = 36;
     $start = microtime(true);
     $fps = 0;
     $frames = 0;
