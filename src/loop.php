@@ -26,7 +26,7 @@ function mainLoop()
         }
         echo($fps.PHP_EOL);
         echo "\033[1;1H";
-        usleep(100000);
+        usleep(1000000);
     }
 }
 
