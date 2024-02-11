@@ -43,7 +43,7 @@ function loadMap(string $path)
 function drawMap(array $map, array $charset)
 {
     $echoStr = '';
-    $lastLine = count($map);
+    $lastLine = count($map) -1;
     foreach ($map as $i => $line) {
         foreach ($line as $char) {
             if (empty($charset[$char]['col'])) {
