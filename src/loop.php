@@ -43,7 +43,8 @@ function loadMap(string $path)
 function drawMap(array $map, array $charset)
 {
     $echoStr = '';
-    foreach ($map as $line) {
+    $lastLine = count($map);
+    foreach ($map as $i => $line) {
         foreach ($line as $char) {
             if (empty($charset[$char]['col'])) {
                 $echoStr .= TERM_RESET;
@@ -53,7 +54,9 @@ function drawMap(array $map, array $charset)
             }
             $echoStr .= $charset[$char]['char'];
         }
-        $echoStr .= PHP_EOL;
+        if ($i !== $lastLine) {
+            $echoStr .= PHP_EOL;
+        }
     }
     echo($echoStr);
 }
